@@ -1,73 +1,56 @@
-// const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 import { Response, Request, NextFunction } from 'express'
+import { UserAttributes } from '../interfaces/types'
+// import { UserAttributes } from '../interfaces/types'
 // import * as dotenv from 'dotenv'
 
 // Models
-import { User } from '../models/user.model'
+// import { create, getAll, getById } from '../services/userService'
+import { getAll, create, update } from '../services/userService'
 
 // Utils
 import { catchAsync } from '../utils/catchAsync.util'
-// const { AppError } = require("../utils/appError.util");
 
 // dotenv.config({ path: './config.env' })
 
 // Gen random jwt signs
 // require('crypto').randomBytes(64).toString('hex') -> Enter into the node console and paste the command
 
-const getAllUsers = catchAsync(
-  async (_req: Request, res: Response, _next: NextFunction) => {
-    const users = await User.findAll({
-      attributes: { exclude: ['password'] },
-      where: { status: 'active' }
-    })
-
-    res.status(200).json({
-      status: 'success',
-      data: { users }
-    })
-  }
+const getAllUsers = catchAsync(async (_req: Request, res: Response, _next: NextFunction) => {
+  const data = await getAll()
+  res.status(200).json({
+    status: 'success',
+    data
+  })
+}
 )
 
-// const createUser = catchAsync(async (req, res, next) => {
-// const { name, email, password, role } = req.body;
+const getUserById = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
+  const { user } = req
+  res.status(200).json({
+    status: 'success',
+    data: user
+  })
+})
 
-// if (role !== 'admin' && role !== 'normal') {
-// return next(new AppError('Invalid role', 400));
-// }
+const createUser = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
+  const user: UserAttributes = req.body
+  const data = await create(user)
+  res.status(201).json({
+    status: 'success',
+    data
+  })
+})
 
-// Encrypt the password
-// const salt = await bcrypt.genSalt(12);
-// const hashedPassword = await bcrypt.hash(password, salt);
-
-// const newUser = await User.create({
-// name,
-// email,
-// password: hashedPassword,
-// role,
-// });
-
-// // Remove password from response
-// newUser.password = undefined;
-
-// // 201 -> Success and a resource has been created
-// res.status(201).json({
-// status: 'success',
-// data: { newUser },
-// });
-// });
-
-// const updateUser = catchAsync(async (req, res, next) => {
-// const { name } = req.body;
-// const { user } = req;
-
-// await user.update({ name });
-
-// res.status(200).json({
-// status: 'success',
-// data: { user },
-// });
-// });
+const updateById = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
+  const userUpdate: UserAttributes = req.body
+  const { user } = req
+  const data = await update(user, userUpdate)
+  res.status(200).json({
+    status: 'success',
+    data
+  })
+})
 
 // const deleteUser = catchAsync(async (req, res, next) => {
 //   const { user } = req
@@ -106,4 +89,4 @@ const getAllUsers = catchAsync(
 //   })
 // })
 
-export { getAllUsers }
+export { createUser, getAllUsers, getUserById, updateById }
