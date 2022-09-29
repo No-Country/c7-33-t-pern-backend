@@ -1,10 +1,10 @@
 import { Sequelize, DataTypes } from 'sequelize'
 import * as dotenv from 'dotenv'
-import { DataBase } from '../interfaces/types'
+import { DataBaseType } from '../interfaces/types'
 
 dotenv.config({ path: './config.env' })
 
-const server: DataBase = {
+const server: DataBaseType = {
   host: process.env.DB_HOST ?? '',
   name: process.env.DB ?? '',
   password: process.env.DB_PASSWORD ?? '',

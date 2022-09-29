@@ -8,7 +8,7 @@ const startServer = async (): Promise<void> => {
     await db.authenticate()
     // Establish the relations between models
     initModels()
-    await db.sync()
+    await db.sync({ force: true })
     // Set server to listen
     const PORT = 8000
     app.listen(PORT, () => {
