@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 // Models
-import { User } from '../models/user.model'
+import User from '../models/user.model'
 
 // Utils
 import { catchAsync } from '../utils/catchAsync.util'
@@ -9,11 +9,11 @@ import { AppError } from '../utils/appError.util'
 
 const userExists = catchAsync(
   async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-    const { id } = req.params
+    const { userId } = req.params
 
     const user = await User.findOne({
       attributes: { exclude: ['password'] },
-      where: { id }
+      where: { id: userId }
     })
 
     // If user doesn't exist, send error message
@@ -22,11 +22,11 @@ const userExists = catchAsync(
     }
 
     // req.anyPropName = 'anyValue'
-    //  req.user = user; => Por revisar
+    req.user = user
     next()
   }
 )
 
-export = {
+export {
   userExists
 }
