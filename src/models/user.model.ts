@@ -1,16 +1,15 @@
+import { ModelDefined } from 'sequelize/types'
 import { db, DataTypes } from '../utils/database.util'
+import { UserAttributes, UserCreationAttributes } from '../interfaces/types'
 
-const User = db.define('user', {
+const User: ModelDefined<UserAttributes, UserCreationAttributes> = db.define('user', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
     autoIncrement: true,
-    allowNull: false
+    primaryKey: true
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
+  name: DataTypes.STRING,
+  lastName: DataTypes.STRING,
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -21,15 +20,16 @@ const User = db.define('user', {
     allowNull: false
   },
   role: {
-    type: DataTypes.STRING,
-    defaultValue: 'normal',
+    type: DataTypes.ENUM('client', 'admin'),
+    defaultValue: 'client',
     allowNull: false
   },
   status: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'active'
-  }
+  },
+  avatar: DataTypes.STRING
 })
 
-export { User }
+export default User
