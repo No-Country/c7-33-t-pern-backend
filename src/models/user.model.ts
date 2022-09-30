@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { ModelDefined } from 'sequelize/types'
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 import { db, DataTypes } from '../utils/database.util'
 import { UserAttributes, UserCreationAttributes } from '../interfaces/types'
 
@@ -32,4 +36,44 @@ const User: ModelDefined<UserAttributes, UserCreationAttributes> = db.define('us
   avatar: DataTypes.STRING
 })
 
+<<<<<<< Updated upstream
 export default User
+=======
+export { User }
+=======
+import { AllowNull, Column, DataType, Model, Table } from 'sequelize-typescript'
+import { Optional } from 'sequelize/types'
+
+export enum UserStatus{
+  active='active',
+  inactive='inactive'
+}
+
+// interface model usuarios
+export interface UserAttributes{
+  id: number
+  email: string
+  password: string
+  status: UserStatus
+}
+
+interface UserCreationAttributes extends Optional<UserAttributes, 'id' > {}
+@Table
+export default class User extends Model<UserAttributes, UserCreationAttributes> {
+  @AllowNull(false)
+  @Column
+  email!: string
+
+  @AllowNull(false)
+  @Column
+  password!: string
+
+  @Column({
+    type: DataType.ENUM(...Object.values(UserStatus)),
+    defaultValue: UserStatus.active,
+    allowNull: false
+  })
+  status!: UserStatus
+}
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
