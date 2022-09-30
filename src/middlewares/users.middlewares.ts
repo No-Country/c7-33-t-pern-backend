@@ -16,13 +16,20 @@ const userExists = catchAsync(
       where: { id: userId }
     })
 
-    // If user doesn't exist, send error message
     if (user == null) {
       return next(new AppError('User not found', 404))
     }
+<<<<<<< Updated upstream
 
     // req.anyPropName = 'anyValue'
+<<<<<<< Updated upstream
     req.user = user
+=======
+    //  req.user = user; => Por revisar
+=======
+    req.user = user
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     next()
   }
 )
