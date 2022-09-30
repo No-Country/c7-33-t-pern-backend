@@ -1,19 +1,20 @@
-import { Model } from 'sequelize'
+
 import bcrypt from 'bcryptjs'
-import User from '../models/user.model'
-import { UserAttributes, UserCreationAttributes } from '../interfaces/types'
+import User, { UserAttributes, UserStatus } from '../models/user.model'
 // import { AppError } from '../utils/appError.util'
 
-const create = async (user: UserAttributes): Promise<Model<UserAttributes, UserCreationAttributes>> => {
+const create = async (user: UserAttributes): Promise<User> => {
   const hashedPassword = await passwordHasher(user.password)
   const newUser = await User.create({
     email: user.email,
-    password: hashedPassword
+    password: hashedPassword,
+    status: UserStatus.active
   })
+
   return newUser
 }
 
-const update = async (user: Model<UserAttributes, UserCreationAttributes>, userUpdate: UserAttributes): Promise<Model<UserAttributes, UserCreationAttributes>> => {
+const update = async (user: User, userUpdate: UserAttributes): Promise<User> => {
   const data = await user.update(userUpdate)
   return data
 }
@@ -24,7 +25,8 @@ const passwordHasher = async (password: string): Promise<string> => {
   return hashedPassword
 }
 
-const getById = async (id: number): Promise<Model<UserAttributes, UserCreationAttributes> | null> => {
+const getById = async (id: number): Promise<User | null> => {
+
   const user = await User.findByPk(id, {
     attributes: {
       exclude: ['password']
@@ -33,7 +35,7 @@ const getById = async (id: number): Promise<Model<UserAttributes, UserCreationAt
   return user
 }
 
-const getAll = async (): Promise<Array<Model<UserAttributes, UserCreationAttributes>>> => {
+const getAll = async (): Promise<User[]> => {
   const users = await User.findAll({
     attributes: { exclude: ['password'] },
     where: { status: 'active' }
