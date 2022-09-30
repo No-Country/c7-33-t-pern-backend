@@ -1,6 +1,11 @@
 import express from 'express'
+<<<<<<< Updated upstream
 import { createUser, getAllUsers, getUserById, updateById } from '../controllers/users.controller'
 import { userExists } from '../middlewares/users.middlewares'
+=======
+<<<<<<< Updated upstream
+import { getAllUsers } from '../controllers/users.controller'
+>>>>>>> Stashed changes
 
 // Controllers
 // import { getAllUsers } from "controllers/users.controller";
@@ -32,5 +37,19 @@ usersRouter.patch('/:userId', updateUserValidators, userExists, updateById)
 // usersRouter.patch("/:id", userExists, protectUsersAccount, updateUser);
 
 // usersRouter.delete("/:id", userExists, protectUsersAccount, deleteUser);
+=======
+import { createUser, getAllUsers, getUserById, updateById } from '../controllers/users.controller'
+import { userExists } from '../middlewares/users.middlewares'
+import { createUserValidators, updateUserValidators } from '../middlewares/validators.middlewares'
+
+const usersRouter = express.Router()
+
+// rutas de acceso
+usersRouter
+  .get('/', getAllUsers)
+  .get('/:userId', userExists, getUserById)
+  .post('/', createUserValidators, createUser)
+  .patch('/:userId', updateUserValidators, userExists, updateById)
+>>>>>>> Stashed changes
 
 export default usersRouter
