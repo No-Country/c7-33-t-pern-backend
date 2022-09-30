@@ -1,5 +1,4 @@
-import { Model } from 'sequelize'
-import { Optional } from 'sequelize/types'
+// database interface
 export interface DataBaseType {
   host: string
   name: string
@@ -8,21 +7,7 @@ export interface DataBaseType {
   user: string
 }
 
-type role = 'admin' | 'client'
-type status = 'active' | 'inactive'
-export interface UserAttributes{
-  id: number
-  name: string
-  lastName: string
-  email: string
-  password: string
-  role: role
-  status: status
-  avatar: string
-}
-
-export type UserCreationAttributes = Optional<UserAttributes, 'id' | 'name'| 'avatar'| 'role'| 'status'| 'lastName'>
-
+// global express interface
 declare global {
   namespace Express {
     export interface Request {
