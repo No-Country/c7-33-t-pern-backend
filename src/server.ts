@@ -1,7 +1,7 @@
 import app from './app'
 // Utils
-import { initModels } from './models/initModels'
 import { db } from './utils/database.util'
+import initModels from './models/initModels'
 
 const startServer = async (): Promise<void> => {
   try {
