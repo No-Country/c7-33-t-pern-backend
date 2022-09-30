@@ -1,20 +1,7 @@
-// const jwt = require('jsonwebtoken');
 import { Response, Request, NextFunction } from 'express'
-import { UserAttributes } from '../interfaces/types'
-// import { UserAttributes } from '../interfaces/types'
-// import * as dotenv from 'dotenv'
-
-// Models
-// import { create, getAll, getById } from '../services/userService'
+import { UserAttributes } from '../models/user.model'
 import { getAll, create, update } from '../services/userService'
-
-// Utils
 import { catchAsync } from '../utils/catchAsync.util'
-
-// dotenv.config({ path: './config.env' })
-
-// Gen random jwt signs
-// require('crypto').randomBytes(64).toString('hex') -> Enter into the node console and paste the command
 
 const getAllUsers = catchAsync(async (_req: Request, res: Response, _next: NextFunction) => {
   const data = await getAll()

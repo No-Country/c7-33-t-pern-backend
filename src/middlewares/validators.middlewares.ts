@@ -32,17 +32,6 @@ const createUserValidators = [
   checkValidations
 ]
 
-<<<<<<< Updated upstream
-const updateUserValidators = [
-  body('status')
-    .isString()
-    .withMessage('status must be a string')
-    .notEmpty()
-    .withMessage('Password cannot be empty'),
-=======
-<<<<<<< Updated upstream
-export { createUserValidators }
-=======
 const updateUserValidators = [
   body('status') // admin or client
     .isString()
@@ -51,12 +40,7 @@ const updateUserValidators = [
     .withMessage('Password cannot be empty')
     .isIn(['active', 'inactive'])
     .withMessage('role must be active or inactive'),
->>>>>>> Stashed changes
   checkValidations
 ]
 
 export { createUserValidators, updateUserValidators }
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
