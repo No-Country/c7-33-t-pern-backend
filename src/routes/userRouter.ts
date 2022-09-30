@@ -1,5 +1,6 @@
 import express from 'express'
-import { getAllUsers } from '../controllers/users.controller'
+import { createUser, getAllUsers, getUserById, updateById } from '../controllers/users.controller'
+import { userExists } from '../middlewares/users.middlewares'
 
 // Controllers
 // import { getAllUsers } from "controllers/users.controller";
@@ -12,11 +13,12 @@ import { getAllUsers } from '../controllers/users.controller'
 //   protectAdmin,
 // } = require("../middlewares/auth.middlewares");
 
-// import { createUserValidators } from "middlewares/validators.middlewares";
+import { createUserValidators, updateUserValidators } from '../middlewares/validators.middlewares'
 
 const usersRouter = express.Router()
 
-// usersRouter.post("/", createUserValidators, createUser);
+// rutas de acceso
+usersRouter.post('/', createUserValidators, createUser)
 
 // usersRouter.post("/login", login);
 
@@ -24,10 +26,11 @@ const usersRouter = express.Router()
 // usersRouter.use(protectSession);
 
 usersRouter.get('/', getAllUsers)
+usersRouter.get('/:userId', userExists, getUserById)
+usersRouter.patch('/:userId', updateUserValidators, userExists, updateById)
 
 // usersRouter.patch("/:id", userExists, protectUsersAccount, updateUser);
 
 // usersRouter.delete("/:id", userExists, protectUsersAccount, deleteUser);
 
-// module.exports = { usersRouter };
 export default usersRouter
