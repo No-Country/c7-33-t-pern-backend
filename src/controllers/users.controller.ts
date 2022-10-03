@@ -24,6 +24,7 @@ const getUserById = catchAsync(async (req: Request, res: Response, _next: NextFu
 const createUser = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
   const user: UserAttributes = req.body
   const data = await create(user)
+
   res.status(201).json({
     status: 'success',
     data
