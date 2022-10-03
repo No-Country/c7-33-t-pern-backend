@@ -1,10 +1,12 @@
 import express from 'express'
+import morgan from 'morgan'
 import usersRouter from './routes/userRouter'
 import { globalErrorHandler } from './controllers/error.controller'
 
 // Init our Express app
 const app = express()
 
+app.use(morgan('dev'))
 app.use(express.json())
 app.use('/api/v1/users', usersRouter)
 app.use(globalErrorHandler)

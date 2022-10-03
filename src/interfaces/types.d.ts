@@ -1,3 +1,5 @@
+import { User } from '../models'
+
 // database interface
 export interface DataBaseType {
   host: string
@@ -11,7 +13,8 @@ export interface DataBaseType {
 declare global {
   namespace Express {
     export interface Request {
-      user: Model<UserAttributes, UserCreationAttributes>
+      // user: Model<UserAttributes, UserCreationAttributes>
+      user: User
     }
   }
 }

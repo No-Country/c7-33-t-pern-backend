@@ -5,6 +5,7 @@ import { catchAsync } from '../utils/catchAsync.util'
 
 const getAllUsers = catchAsync(async (_req: Request, res: Response, _next: NextFunction) => {
   const data = await getAll()
+
   res.status(200).json({
     status: 'success',
     data

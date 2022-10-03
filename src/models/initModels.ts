@@ -3,7 +3,6 @@ import { Branch, Match, Profile, Review, Role, Technology, User } from '../model
 const initModels = (): void => {
   // USER N<=>M USER => MATCH => GENERATE AUT INTERMEDIATE TABLE
   User.belongsToMany(User, { through: Match, as: 'UserMatch' })
-
   // USER N<=>M USER => REVIEWS // RESTRICCION DE 1 POR USUARIO
   User.belongsToMany(User, { through: Review, as: 'UserReview' })
   // USER 1<=>1 PROFILE => PROFILE DETAILS => GENERATE AUT INTERMEDIATE TABLE
