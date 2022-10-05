@@ -1,5 +1,4 @@
 import { body } from 'express-validator'
-
 // Utils
 import checkValidations from './checkValidators.middlewares'
 

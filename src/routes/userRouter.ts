@@ -1,7 +1,6 @@
 import express from 'express'
 import { createUser, getAllUsers, getUserById, updateById } from '../controllers/users.controller'
-import { userExists } from '../middlewares/users.middlewares'
-import { createUserValidators, updateUserValidators } from '../middlewares/validators.middlewares'
+import { userExists } from '../middlewares/exists.middlewares'
 
 const usersRouter = express.Router()
 

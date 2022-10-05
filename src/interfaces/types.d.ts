@@ -1,4 +1,4 @@
-import { User, Branch, Technology, User } from '../models'
+import { Branch, Technology, User } from '../models'
 
 // database interface
 export interface DataBaseType {

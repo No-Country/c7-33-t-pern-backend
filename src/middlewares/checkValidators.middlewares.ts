@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import { validationResult } from 'express-validator'
-
 // Utils
 import { AppError } from '../utils/appError.util'
 

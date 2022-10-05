@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
-
 // Models
 import { User, Branch, Technology } from '../models'
-
 // Utils
 import { catchAsync } from '../utils/catchAsync.util'
 import { AppError } from '../utils/appError.util'
