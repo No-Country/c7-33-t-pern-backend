@@ -1,24 +1,25 @@
-import { Request, Response, NextFunction } from 'express'
-import { validationResult, body } from 'express-validator'
+// import { Request, Response, NextFunction } from 'express'
+import { body } from 'express-validator'
+import checkValidations from './checkValidators.middlewares'
 
 // Utils
-import { AppError } from '../utils/appError.util'
+// import { AppError } from '../utils/appError.util'
 
-const checkValidations = (
-  req: Request,
-  _res: Response,
-  next: NextFunction
-): any => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    // [{ ..., msg }] -> [msg, msg, ...] -> 'msg. msg. msg. msg'
-    const errorMessages = errors.array().map((err) => err.msg)
-    const message = errorMessages.join('. ')
-    return next(new AppError(message, 400))
-  }
+// const checkValidations = (
+//   req: Request,
+//   _res: Response,
+//   next: NextFunction
+// ): any => {
+//   const errors = validationResult(req)
+//   if (!errors.isEmpty()) {
+//     // [{ ..., msg }] -> [msg, msg, ...] -> 'msg. msg. msg. msg'
+//     const errorMessages = errors.array().map((err) => err.msg)
+//     const message = errorMessages.join('. ')
+//     return next(new AppError(message, 400))
+//   }
 
-  next()
-}
+//   next()
+// }
 
 const createUserValidators = [
   body('email').isEmail().withMessage('Must provide a valid email'),
