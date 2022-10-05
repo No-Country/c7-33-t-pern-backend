@@ -1,12 +1,14 @@
 import express from 'express'
-import usersRouter from './routes/userRouter'
+import morgan from 'morgan'
 import { globalErrorHandler } from './controllers/error.controller'
+import routers from './routes'
 
 // Init our Express app
 const app = express()
 
+app.use(morgan('dev'))
 app.use(express.json())
-app.use('/api/v1/users', usersRouter)
+app.use('/api/v1', routers)
 app.use(globalErrorHandler)
 
 // Catch non-existing endpoints

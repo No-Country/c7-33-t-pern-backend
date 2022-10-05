@@ -26,7 +26,6 @@ const passwordHasher = async (password: string): Promise<string> => {
 }
 
 const getById = async (id: number): Promise<User | null> => {
-
   const user = await User.findByPk(id, {
     attributes: {
       exclude: ['password']
