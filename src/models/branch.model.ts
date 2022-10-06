@@ -1,4 +1,5 @@
-import { AllowNull, Column, Model, Table } from 'sequelize-typescript'
+import { Column, DataType, Model, Table } from 'sequelize-typescript'
+
 import { Optional } from 'sequelize/types'
 
 // interface model branch
@@ -11,7 +12,10 @@ interface BranchCreationAttributes extends Optional<BranchAttributes, 'id' >{}
 
 @Table
 export default class Branch extends Model<BranchAttributes, BranchCreationAttributes> {
-  @AllowNull(false)
-  @Column
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true
+  })
   name!: string
 }
