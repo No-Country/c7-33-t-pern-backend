@@ -1,6 +1,6 @@
 import express from 'express'
 import { getAllTechnologies, createTechnology, getTechnologyById, updateTechnologyById } from '../controllers/technology.controller'
-import { createValidators, updateValidators } from '../middlewares/branchValidators.middlewares'
+import { createUpdateValidators } from '../middlewares/technologyValidators.middlewares'
 import { branchExists } from '../middlewares/exists.middlewares'
 
 const branchRouter = express.Router()
@@ -9,7 +9,7 @@ const branchRouter = express.Router()
 branchRouter
   .get('/', getAllTechnologies)
   .get('/:branchId', branchExists, getTechnologyById)
-  .post('/', createValidators, createTechnology)
-  .patch('/:branchId', updateValidators, branchExists, updateTechnologyById)
+  .post('/', createUpdateValidators, createTechnology)
+  .patch('/:branchId', createUpdateValidators, branchExists, updateTechnologyById)
 
 export default branchRouter

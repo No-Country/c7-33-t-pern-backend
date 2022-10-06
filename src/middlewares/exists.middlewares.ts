@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 // Models
-import { User, Branch, Technology } from '../models'
+import { User, Branch, Technology, Review } from '../models'
 // Utils
 import { catchAsync } from '../utils/catchAsync.util'
 import { AppError } from '../utils/appError.util'
@@ -51,8 +51,22 @@ const technologyExists = catchAsync(
   }
 )
 
+const reviewExists = catchAsync(
+  async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+    const { UserId, UserReviewId } = req.params
+    const review = await Review.findOne({ where: { UserReviewId, UserId } })
+
+    if (review == null) {
+      return next(new AppError('Review not found', 404))
+    }
+
+    req.review = review
+    next()
+  })
+
 export {
   userExists,
   branchExists,
-  technologyExists
+  technologyExists,
+  reviewExists
 }
