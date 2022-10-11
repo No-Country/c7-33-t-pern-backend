@@ -19,9 +19,9 @@ const updateUserValidators = [
     .isString()
     .withMessage('status must be a string')
     .notEmpty()
-    .withMessage('Password cannot be empty')
+    .withMessage('status cannot be empty')
     .isIn(['active', 'inactive'])
-    .withMessage('role must be active or inactive'),
+    .withMessage('status must be active or inactive'),
   checkValidations
 ]
 

@@ -1,4 +1,4 @@
-import { AllowNull, Column, DataType, Model, Table } from 'sequelize-typescript'
+import { AllowNull, Column, DataType, Model, Table, Unique } from 'sequelize-typescript'
 import { Optional } from 'sequelize/types'
 
 export enum UserStatus{
@@ -18,7 +18,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id' > {}
 @Table
 export default class User extends Model<UserAttributes, UserCreationAttributes> {
   @AllowNull(false)
-  @Column
+  @Column({ unique: true })
   email!: string
 
   @AllowNull(false)

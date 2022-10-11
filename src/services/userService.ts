@@ -1,4 +1,3 @@
-
 import bcrypt from 'bcryptjs'
 import User, { UserAttributes, UserStatus } from '../models/user.model'
 // import { AppError } from '../utils/appError.util'

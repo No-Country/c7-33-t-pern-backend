@@ -1,4 +1,4 @@
-import { Branch, Technology, User } from '../models'
+import { Branch, Review, Technology, User } from '../models'
 
 // database interface
 export interface DataBaseType {
@@ -15,6 +15,7 @@ declare global {
       user: User
       branch: Branch
       technology: Technology
+      review: Review
     }
   }
 }
