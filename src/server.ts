@@ -1,7 +1,10 @@
 import app from './app'
+import * as dotenv from 'dotenv'
 // Utils
 import { db } from './utils/database.util'
 import initModels from './models/initModels'
+
+dotenv.config({ path: './config.env' })
 
 const startServer = async (): Promise<void> => {
   try {
@@ -10,7 +13,7 @@ const startServer = async (): Promise<void> => {
     initModels()
     await db.sync({ force: true })
     // Set server to listen
-    const PORT = 8000
+    const PORT = process.env.PORT ?? 8000
     app.listen(PORT, () => {
       console.log('Express app running!', PORT)
     })
