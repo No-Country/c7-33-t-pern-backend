@@ -5,9 +5,24 @@ import checkValidations from './checkValidators.middlewares'
 const createUpdateValidators = [
   body('name')
     .isString()
-    .withMessage('AccessLevel must be a string')
+    .withMessage('name must be a string')
     .notEmpty()
-    .withMessage('AccessLevel cannot be empty'),
+    .withMessage('name cannot be empty'),
+  body('lastName')
+    .isString()
+    .withMessage('last Name must be a string')
+    .notEmpty()
+    .withMessage('last Name cannot be empty'),
+  body('title')
+    .isString()
+    .withMessage('title  must be a string')
+    .notEmpty()
+    .withMessage('title  cannot be empty'),
+  body('biography')
+    .isString()
+    .withMessage('biography  must be a string')
+    .notEmpty()
+    .withMessage('biography  cannot be empty'),
   checkValidations
 ]
 

@@ -4,9 +4,7 @@ import { create, deleteById, getAll, update } from '../services/profileService'
 import { catchAsync } from '../utils/catchAsync.util'
 
 const createProfile = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
-  const profile: ProfileAttributes = req.body
-  const { user } = req
-  const data = await create(user, profile)
+  const data = await create(req)
 
   res.status(201).json({
     status: 'success',
