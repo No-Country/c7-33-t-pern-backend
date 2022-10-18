@@ -8,6 +8,11 @@ export interface DataBaseType {
   port: number
   user: string
 }
+
+//
+interface Header {
+  authorization: String
+}
 // global express interface
 declare global {
   namespace Express {
@@ -16,6 +21,15 @@ declare global {
       branch: Branch
       technology: Technology
       review: Review
+      sessionUser: User
+      headers: Header
     }
+  }
+}
+
+//
+declare module 'jsonwebtoken' {
+  export interface JwtPayload {
+    id: number
   }
 }

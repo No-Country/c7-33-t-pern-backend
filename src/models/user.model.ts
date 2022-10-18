@@ -1,4 +1,4 @@
-import { AllowNull, Column, DataType, Model, Table, Unique } from 'sequelize-typescript'
+import { AllowNull, Column, DataType, Model, Table } from 'sequelize-typescript'
 import { Optional } from 'sequelize/types'
 
 export enum UserStatus{
@@ -10,7 +10,7 @@ export enum UserStatus{
 export interface UserAttributes{
   id: number
   email: string
-  password: string
+  password: string | undefined
   status: UserStatus
 }
 

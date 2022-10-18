@@ -1,11 +1,11 @@
 import Review, { ReviewAttributes } from '../models/review.model'
 
-const create = async (review: ReviewAttributes): Promise<Review> => {
+const create = async (review: ReviewAttributes, UserId: number, UserReviewId: number): Promise<Review> => {
   return await Review.create({
     comment: review.comment,
     value: review.value,
-    UserId: review.UserId,
-    UserReviewId: review.UserReviewId
+    UserId,
+    UserReviewId
   })
 }
 
