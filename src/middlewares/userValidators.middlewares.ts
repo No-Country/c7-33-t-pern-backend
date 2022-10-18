@@ -2,7 +2,7 @@ import { body } from 'express-validator'
 import checkValidations from './checkValidators.middlewares'
 
 // Utils
-const createUserValidators = [
+const createOrUpdateUserValidators = [
   body('email').isEmail().withMessage('Must provide a valid email'),
   body('password')
     .isString()
@@ -14,15 +14,15 @@ const createUserValidators = [
   checkValidations
 ]
 
-const updateUserValidators = [
-  body('status') // admin or client
-    .isString()
-    .withMessage('status must be a string')
-    .notEmpty()
-    .withMessage('status cannot be empty')
-    .isIn(['active', 'inactive'])
-    .withMessage('status must be active or inactive'),
-  checkValidations
-]
+// const updateUserValidators = [
+//   body('status') // admin or client
+//     .isString()
+//     .withMessage('status must be a string')
+//     .notEmpty()
+//     .withMessage('status cannot be empty')
+//     .isIn(['active', 'inactive'])
+//     .withMessage('status must be active or inactive'),
+//   checkValidations
+// ]
 
-export { createUserValidators, updateUserValidators }
+export { createOrUpdateUserValidators }

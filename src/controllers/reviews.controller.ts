@@ -5,8 +5,10 @@ import { catchAsync } from '../utils/catchAsync.util'
 
 const createReview = catchAsync(
   async (req: Request, res: Response, _next: NextFunction) => {
+    const { sessionUser } = req
+    const { UserReviewId } = req.params
     const review: ReviewAttributes = req.body
-    const data = await create(review)
+    const data = await create(review, sessionUser.id, Number(UserReviewId))
 
     res.status(201).json({
       status: 'succes',
@@ -17,7 +19,7 @@ const createReview = catchAsync(
 
 const getUsersReviews = catchAsync(
   async (req: Request, res: Response, _next: NextFunction) => {
-    const data = getAll(req.user.id)
+    const data = await getAll(req.user.id)
 
     res.status(200).json({
       status: 'success',
@@ -29,7 +31,7 @@ const updateReview = catchAsync(
   async (req: Request, res: Response, _next: NextFunction) => {
     const { review } = req
     const reviewUpdate: ReviewAttributes = req.body
-    const data = update(review, reviewUpdate)
+    const data = await update(review, reviewUpdate)
 
     res.status(200).json({
       status: 'success',

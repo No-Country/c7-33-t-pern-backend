@@ -3,7 +3,7 @@ import User, { UserAttributes, UserStatus } from '../models/user.model'
 // import { AppError } from '../utils/appError.util'
 
 const create = async (user: UserAttributes): Promise<User> => {
-  const hashedPassword = await passwordHasher(user.password)
+  const hashedPassword = await passwordHasher(user.password as string)
   const newUser = await User.create({
     email: user.email,
     password: hashedPassword,
@@ -14,7 +14,18 @@ const create = async (user: UserAttributes): Promise<User> => {
 }
 
 const update = async (user: User, userUpdate: UserAttributes): Promise<User> => {
-  const data = await user.update(userUpdate)
+  const hashedPassword = await passwordHasher(user.password)
+  const data = await user.update({
+    email: userUpdate.email,
+    password: hashedPassword
+  })
+  return data
+}
+
+const remove = async (user: User): Promise<User> => {
+  const data = await user.update({
+    status: UserStatus.inactive
+  })
   return data
 }
 
@@ -33,6 +44,11 @@ const getById = async (id: number): Promise<User | null> => {
   return user
 }
 
+const getByEmail = async (email: string): Promise<User | null> => {
+  const user = await User.findOne({ where: { email, status: 'active' } })
+  return user
+}
+
 const getAll = async (): Promise<User[]> => {
   const users = await User.findAll({
     attributes: { exclude: ['password'] },
@@ -44,7 +60,9 @@ const getAll = async (): Promise<User[]> => {
 export {
   create,
   update,
+  remove,
   passwordHasher,
   getById,
+  getByEmail,
   getAll
 }
