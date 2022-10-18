@@ -1,12 +1,6 @@
 import Profile, { ProfileAttributes } from '../models/profile.model'
-import { Request } from 'express'
-import { uploadProfileImg } from '../utils/firebase.util'
 
-export const create = async (req: Request): Promise<Profile> => {
-  const profile: ProfileAttributes = req.body
-  const { sessionUser } = req
-  const imgUrl = await uploadProfileImg(req.file as Express.Multer.File, sessionUser.id)
-  profile.avatar = imgUrl
+export const create = async (profile: ProfileAttributes): Promise<Profile> => {
   const newProfile = await Profile.create(profile)
   return newProfile
 }

@@ -1,10 +1,23 @@
 import { Response, Request, NextFunction } from 'express'
 import { ProfileAttributes } from '../models/profile.model'
 import { create, deleteById, getAll, update } from '../services/profileService'
+import { AppError } from '../utils/appError.util'
 import { catchAsync } from '../utils/catchAsync.util'
+import { uploadProfileImg } from '../utils/firebase.util'
 
-const createProfile = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
-  const data = await create(req)
+const createProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const profile: ProfileAttributes = req.body
+  const { sessionUser, file } = req
+
+  let imgUrl
+  if (file === undefined) {
+    next(new AppError('Error loading profile picture ', 500))
+  } else {
+    imgUrl = await uploadProfileImg(file, sessionUser.id)
+    profile.avatar = imgUrl
+  }
+
+  const data = await create(profile)
 
   res.status(201).json({
     status: 'success',
