@@ -11,6 +11,14 @@ export const create = async (user: UserAttributes): Promise<User> => {
   return newUser
 }
 
+export const createBulk = async (users: UserAttributes[]): Promise<UserAttributes[]> => {
+  for (const user of users) {
+    const hashedPassword = await passwordHasher(user.password ?? '')
+    user.password = hashedPassword
+  }
+  return await User.bulkCreate(users)
+}
+
 export const update = async (user: User, userUpdate: UserAttributes): Promise<User> => {
   const hashedPassword = await passwordHasher(user.password)
   const data = await user.update({
@@ -53,6 +61,7 @@ const passwordHasher = async (password: string): Promise<string> => {
 
 export default {
   create,
+  createBulk,
   update,
   remove,
   passwordHasher,

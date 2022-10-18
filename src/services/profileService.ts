@@ -1,8 +1,12 @@
+import { User } from '../models'
 import Profile, { ProfileAttributes } from '../models/profile.model'
 
-export const create = async (profile: ProfileAttributes): Promise<Profile> => {
-  const newProfile = await Profile.create(profile)
-  return newProfile
+export const create = async (user: User, profile: ProfileAttributes): Promise<Profile> => {
+  return await Profile.create({ ...profile, UserId: user.id })
+}
+
+export const createBulk = async (profiles: ProfileAttributes[]): Promise<ProfileAttributes[]> => {
+  return await Profile.bulkCreate(profiles)
 }
 
 export const deleteById = async (id: number): Promise<Number> => {
@@ -26,5 +30,6 @@ export default {
   deleteById,
   getAll,
   getById,
-  update
+  update,
+  createBulk
 }

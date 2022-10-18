@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express'
 import { ProfileAttributes } from '../models/profile.model'
-import { create, deleteById, getAll, update } from '../services/profileService'
 import { AppError } from '../utils/appError.util'
+import { create, createBulk, deleteById, getAll, update } from '../services/profileService'
 import { catchAsync } from '../utils/catchAsync.util'
 import { uploadProfileImg } from '../utils/firebase.util'
 
@@ -16,8 +16,17 @@ const createProfile = catchAsync(async (req: Request, res: Response, next: NextF
     imgUrl = await uploadProfileImg(file, sessionUser.id)
     profile.avatar = imgUrl
   }
+  const data = await create(sessionUser, profile)
 
-  const data = await create(profile)
+  res.status(201).json({
+    status: 'success',
+    data
+  })
+})
+
+const createBulkProfile = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
+  const profiles: ProfileAttributes[] = req.body
+  const data = await createBulk(profiles)
 
   res.status(201).json({
     status: 'success',
@@ -69,6 +78,7 @@ const updateProfileById = catchAsync(async (req: Request, res: Response, _next: 
 
 export {
   createProfile,
+  createBulkProfile,
   deleteProfileById,
   getAllProfiles,
   getProfileById,

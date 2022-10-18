@@ -1,5 +1,5 @@
 import express from 'express'
-import { createProfile, deleteProfileById, getAllProfiles, getProfileById, updateProfileById } from '../controllers/profile.controller'
+import { createBulkProfile, createProfile, deleteProfileById, getAllProfiles, getProfileById, updateProfileById } from '../controllers/profile.controller'
 import { createUpdateValidators } from '../middlewares/profileValidators.middlewares'
 import { profileExists, userExists } from '../middlewares/exists.middlewares'
 import { upload } from '../utils/multer.util'
@@ -14,6 +14,7 @@ profileRouter
   .get('/', getAllProfiles)
   .get('/:profileId', profileExists, getProfileById)
   .patch('/:profileId', createUpdateValidators, profileExists, updateProfileById)
-  .post('/:userId', userExists, upload.single('avatar'), createProfile)
+  .post('/', userExists, upload.single('avatar'), createProfile)
+  .post('/bulk', createBulkProfile)
 
 export default profileRouter

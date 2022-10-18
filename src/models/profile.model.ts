@@ -3,15 +3,16 @@ import { Optional } from 'sequelize/types'
 
 // interface model profile
 export interface ProfileAttributes{
-  id: number
+  id?: number
   name: string
   lastName: string
   title: string
   biography: string
   avatar: string
+  UserId?: number
 }
 
-interface ProfileCreationAttributes extends Optional<ProfileAttributes, 'id'>{}
+interface ProfileCreationAttributes extends Optional<ProfileAttributes, 'id' | 'UserId'>{}
 
 @Table
 export default class Profile extends Model<ProfileAttributes, ProfileCreationAttributes> {
