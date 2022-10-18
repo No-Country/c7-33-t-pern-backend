@@ -1,6 +1,6 @@
 import Review, { ReviewAttributes } from '../models/review.model'
 
-const create = async (review: ReviewAttributes, UserId: number, UserReviewId: number): Promise<Review> => {
+export const create = async (review: ReviewAttributes, UserId: number, UserReviewId: number): Promise<Review> => {
   return await Review.create({
     comment: review.comment,
     value: review.value,
@@ -9,16 +9,16 @@ const create = async (review: ReviewAttributes, UserId: number, UserReviewId: nu
   })
 }
 
-const getAll = async (UserReviewId: number): Promise<Review[]> => {
+export const getAll = async (UserReviewId: number): Promise<Review[]> => {
   return await Review.findAll({ where: { UserReviewId } })
 }
 
-const update = async (review: Review, reviewUpdate: ReviewAttributes): Promise<Review> => {
+export const update = async (review: Review, reviewUpdate: ReviewAttributes): Promise<Review> => {
   return await review.update({ comment: reviewUpdate.comment, value: reviewUpdate.value })
 }
 
-const destroy = async (review: Review): Promise<void> => {
+export const destroy = async (review: Review): Promise<void> => {
   await review.destroy()
 }
 
-export { create, getAll, update, destroy }
+export default { create, getAll, update, destroy }

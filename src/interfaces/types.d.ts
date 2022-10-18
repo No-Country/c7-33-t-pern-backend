@@ -1,4 +1,4 @@
-import { Branch, Review, Technology, User } from '../models'
+import { Review, Profile, Role, Technology, User } from '../models'
 
 // database interface
 export interface DataBaseType {
@@ -17,12 +17,13 @@ interface Header {
 declare global {
   namespace Express {
     export interface Request {
-      user: User
-      branch: Branch
+      profile: Profile
+      role: Role
       technology: Technology
       review: Review
       sessionUser: User
       headers: Header
+      user: User
     }
   }
 }

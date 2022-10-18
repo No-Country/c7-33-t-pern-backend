@@ -1,12 +1,13 @@
 import { body } from 'express-validator'
 // Utils
 import checkValidations from './checkValidators.middlewares'
+
 const createUpdateValidators = [
   body('name')
     .isString()
-    .withMessage('name must be a string')
+    .withMessage('AccessLevel must be a string')
     .notEmpty()
-    .withMessage('name cannot be empty'),
+    .withMessage('AccessLevel cannot be empty'),
   checkValidations
 ]
 
