@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import { Role } from '../models'
 import User, { UserAttributes, UserStatus } from '../models/user.model'
 // import { AppError } from '../utils/appError.util'
 
@@ -8,6 +9,7 @@ export const create = async (user: UserAttributes): Promise<User> => {
     ...user,
     password: hashedPassword
   })
+  await newUser.$add('Role', 1)
   return newUser
 }
 
@@ -16,7 +18,13 @@ export const createBulk = async (users: UserAttributes[]): Promise<UserAttribute
     const hashedPassword = await passwordHasher(user.password ?? '')
     user.password = hashedPassword
   }
-  return await User.bulkCreate(users)
+  const newUsers = await User.bulkCreate(users)
+
+  for (const user of newUsers) {
+    await user.$add('Role', 1)
+  }
+
+  return newUsers
 }
 
 export const update = async (user: User, userUpdate: UserAttributes): Promise<User> => {
@@ -36,6 +44,12 @@ export const remove = async (user: User): Promise<User> => {
 
 export const getAll = async (): Promise<User[]> => {
   return await User.findAll({
+    include: {
+      model: Role,
+      through: {
+        attributes: []
+      }
+    },
     attributes: { exclude: ['password'] },
     where: { status: UserStatus.active }
   })

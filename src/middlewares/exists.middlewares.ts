@@ -65,9 +65,8 @@ export const reviewExists = catchAsync(
 
 export const userExists = catchAsync(
   async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-    const { UserId } = req.body
-
-    const user = await userService.getById(UserId)
+    const { userId } = req.params
+    const user = await userService.getById(userId)
 
     if (user == null) {
       return next(new AppError('User not found', 404))
