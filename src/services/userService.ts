@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { Role } from '../models'
+import { Profile, Role } from '../models'
 import User, { UserAttributes, UserStatus } from '../models/user.model'
 // import { AppError } from '../utils/appError.util'
 
@@ -44,12 +44,12 @@ export const remove = async (user: User): Promise<User> => {
 
 export const getAll = async (): Promise<User[]> => {
   return await User.findAll({
-    include: {
+    include: [{
       model: Role,
       through: {
         attributes: []
       }
-    },
+    }, { model: Profile }],
     attributes: { exclude: ['password'] },
     where: { status: UserStatus.active }
   })
